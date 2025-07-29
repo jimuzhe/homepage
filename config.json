@@ -1,0 +1,29 @@
+{
+  "profile": {
+    "name": "张三",
+    "title": "前端开发工程师",
+    "description": "热爱技术，专注于前端开发和用户体验设计。拥有5年的开发经验，擅长JavaScript、React、Vue等技术栈。",
+    "avatar": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMjaIiYVwSI6brk1VkX8CwRlN-eOfEAAuzHMRsaw0lUVyqVbdjhIqwBAAMCAANtAAM2BA.png",
+    "backgroundImage": "https://www.yysls.cn/pc/gw/20220815175950/img/downloads/bz/23_b5691a8.jpg?image_process=format,jpg",
+    "profileBackground": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "profileBackgroundType": "image"
+  },
+  "contact": {
+    "email": "zhangsan@example.com",
+    "phone": "+86 138-0000-0000",
+    "address": "北京市海淀区"
+  },
+  "skills": [
+    "JavaScript",
+    "React",
+    "Vue.js",
+    "CSS3",
+    "HTML5",
+    "Node.js"
+  ],
+  "socialLinks": [
+    { "name": "GitHub", "url": "#" },
+    { "name": "LinkedIn", "url": "#" },
+    { "name": "微博", "url": "#" }
+  ]
+}
