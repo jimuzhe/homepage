@@ -6,7 +6,9 @@
     "avatar": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMjaIiYVwSI6brk1VkX8CwRlN-eOfEAAuzHMRsaw0lUVyqVbdjhIqwBAAMCAANtAAM2BA.png",
     "backgroundImage": "https://www.yysls.cn/pc/gw/20220815175950/img/downloads/bz/23_b5691a8.jpg?image_process=format,jpg",
     "profileBackground": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-    "profileBackgroundType": "image"
+    "profileBackgroundType": "image",
+    "id": "冀ICP备2024085708号",
+    "siteStart": "2025-07-28"
   },
   "contact": {
     "email": "zhangsan@example.com",
@@ -14,12 +16,22 @@
     "address": "北京市海淀区"
   },
   "skills": [
-    "JavaScript",
-    "React",
-    "Vue.js",
-    "CSS3",
-    "HTML5",
-    "Node.js"
+    "Docker",
+    "Git",
+    "Go",
+    "MySQL",
+    "Redis",
+    "Linux",
+    "Spring",
+    "TensorFlow",
+    "PyTorch",
+    "OpenCV",
+    "RabbitMQ",
+    "OpenAI",
+    "R",
+    "C++",
+    "Python",
+    "Javascript"
   ],
   "socialLinks": [
     { "name": "GitHub", "url": "#" },

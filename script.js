@@ -1,26 +1,3 @@
-// 配置数据（避免跨域问题）
-const CONFIG = {
-    "profile": {
-        "name": "LongDz",
-        "title": "<后端工程师>",
-        "birthday": "生辰: 6月1日",
-        "description": "热爱技术，专注于后端开发和系统架构设计。拥有5年的开发经验，擅长Java、Python、Node.js等技术栈。",
-        "avatar": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMjaIiYVwSI6brk1VkX8CwRlN-eOfEAAuzHMRsaw0lUVyqVbdjhIqwBAAMCAANtAAM2BA.png",
-        "backgroundImage": "https://www.yysls.cn/pc/gw/20220815175950/img/downloads/bz/23_b5691a8.jpg?image_process=format,jpg",
-        "days": "215"
-    },
-    "skills": [
-        "Java",
-        "Docker",
-        "Git",
-        "Nginx",
-        "MySQL",
-        "Redis",
-        "Linux",
-        "Spring Boot"
-    ]
-};
-
 // 加载配置文件并渲染页面
 async function loadConfig() {
     try {
@@ -55,28 +32,75 @@ function renderProfile(config) {
     document.getElementById('description').textContent = profile.description;
     document.getElementById('background-image').src = profile.backgroundImage;
 
-    // 等级和统计信息
-    document.querySelector('.level').textContent = profile.level;
-    document.getElementById('coins').textContent = profile.coins;
-    document.getElementById('fire').textContent = profile.fire;
-    document.getElementById('friends').textContent = profile.friends;
+    // ...无等级和统计信息，防止报错...
 
-    // ID信息
-    document.querySelector('.id-info').innerHTML = `
+    // 备案号和运行天数
+    const idInfo = document.querySelector('.id-info');
+    let days = 0;
+    if (profile.siteStart) {
+        const startDate = new Date(profile.siteStart);
+        const now = new Date();
+        days = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    }
+    idInfo.innerHTML = `
         <i class="fas fa-id-card"></i>
-        <span>备案号${profile.id}</span>
-        <span>已运行${profile.days}天</span>
+        <span>${profile.id || ''}</span>
+        <span>已运行${days}天</span>
     `;
-    // 技能标签
+    // 技能标签（Simple Icons SVG）
     const skillTagsContainer = document.getElementById('skill-tags');
     skillTagsContainer.innerHTML = '';
     skills.forEach(skill => {
-        const skillTag = document.createElement('span');
+        // Simple Icons slug规则：全小写，空格/点/加号/下划线/斜杠等转为无
+        let slug = skill.toLowerCase().replace(/(\s|\.|\+|_|\/)/g, '');
+        // 特殊处理部分slug
+        if (slug === 'springboot') slug = 'springboot';
+        if (slug === 'css3') slug = 'css3';
+        if (slug === 'c++') slug = 'cplusplus';
+        if (slug === 'c#') slug = 'csharp';
+        // Simple Icons CDN
+        const iconUrl = `https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${slug}.svg`;
+        const skillTag = document.createElement('div');
         skillTag.className = 'skill-tag';
-        skillTag.textContent = skill;
+        skillTag.innerHTML = `<img src="${iconUrl}" alt="${skill}" style="width:28px;height:28px;display:block;margin-bottom:2px;filter:invert(80%) grayscale(1);"><span>${skill}</span>`;
         skillTagsContainer.appendChild(skillTag);
     });
 }
 
+// 计算网站运行天数
+function setSiteDays() {
+    // 设置建站日期（如2024-01-01）
+    var startDate = new Date('2025-07-28');
+    var now = new Date();
+    var days = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    var siteDays = document.getElementById('site-days');
+    if (siteDays) siteDays.textContent = `已运行${days}天`;
+}
+
+// Tab切换逻辑
+function setupTabs() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+    // 初始化：只显示第一个tab内容，其余隐藏
+    tabContents.forEach((tc, idx) => {
+        tc.style.display = idx === 0 ? '' : 'none';
+    });
+    navItems.forEach((item, idx) => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            navItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            const tab = this.getAttribute('data-tab');
+            tabContents.forEach(tc => {
+                tc.style.display = tc.id === 'tab-' + tab ? '' : 'none';
+            });
+        });
+    });
+}
+
 // 页面加载完成后执行
-document.addEventListener('DOMContentLoaded', loadConfig);
+document.addEventListener('DOMContentLoaded', function () {
+    loadConfig();
+    setSiteDays();
+    setupTabs();
+});
