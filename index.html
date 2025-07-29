@@ -15,37 +15,55 @@
         <div class="profile-section">
             <div class="profile-info">
                 <div class="top-nav">
-                    <a href="#" class="nav-item active"><i class="fas fa-user"></i></a>
-                    <a href="#" class="nav-item"><i class="fas fa-link"></i></a>
-                    <a href="#" class="nav-item"><i class="fas fa-project-diagram"></i></a>
+                    <a href="#" class="nav-item active" data-tab="profile"><i class="fas fa-user"></i></a>
+                    <a href="#" class="nav-item" data-tab="links"><i class="fas fa-link"></i></a>
+                    <a href="#" class="nav-item" data-tab="projects"><i class="fas fa-project-diagram"></i></a>
                 </div>
-                <div class="profile-header">
-                    <div class="avatar">
-                        <img id="avatar" src="" alt="头像">
+                <!-- 个人资料 Tab -->
+                <div id="tab-profile" class="tab-content">
+                    <div class="profile-header">
+                        <div class="avatar">
+                            <img id="avatar" src="" alt="头像">
+                        </div>
+                        <div class="header-info">
+                            <h1 id="name" class="name">LongDz</h1>
+                            <p id="title" class="title"></p>
+                            <p id="birthday" class="birthday">生辰: 6月1日</p>
+                        </div>
                     </div>
-                    <div class="header-info">
-                        <h1 id="name" class="name">LongDz</h1>
-                        <p id="title" class="title"></p>
-                        <p id="birthday" class="birthday">生辰: 6月1日</p>
+
+                    <p id="description" class="description"></p>
+
+                    <div class="social-media-buttons">
+                        <a href="#" class="social-button">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="#" class="social-button">
+                            <i class="fa-brands fa-x-twitter"></i>
+                            <span>X (Twitter)</span>
+                        </a>
+                    </div>
+
+                    <div class="skills">
+                        <div id="skill-tags" class="skill-tags">
+                        </div>
                     </div>
                 </div>
 
-                <p id="description" class="description"></p>
-
-                <div class="social-media-buttons">
-                    <a href="#" class="social-button">
-                        <i class="fa-brands fa-github"></i>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="#" class="social-button">
-                        <i class="fa-brands fa-x-twitter"></i>
-                        <span>X (Twitter)</span>
-                    </a>
+                <!-- 友链 Tab -->
+                <div id="tab-links" class="tab-content" style="display: none;">
+                    <div class="links-container">
+                        <div class="links-title">友链</div>
+                        <div id="friend-links" class="friend-links">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="skills">
-                    
-                    <div id="skill-tags" class="skill-tags">
+                <!-- 项目 Tab -->
+                <div id="tab-projects" class="tab-content" style="display: none;">
+                    <div class="projects-container">
+                        <p>项目展示内容待开发...</p>
                     </div>
                 </div>
 

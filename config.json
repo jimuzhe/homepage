@@ -37,5 +37,55 @@
     { "name": "GitHub", "url": "#" },
     { "name": "LinkedIn", "url": "#" },
     { "name": "微博", "url": "#" }
+  ],
+  "friendLinks": [
+    {
+      "name": "折雪刀法",
+      "url": "https://example1.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg",
+      "description": "专注于前端技术分享"
+    },
+    {
+      "name": "喑夫刀法",
+      "url": "https://example2.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vue.svg",
+      "description": "Vue.js 技术博客"
+    },
+    {
+      "name": "技术博客",
+      "url": "https://example3.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg",
+      "description": "React 开发经验分享"
+    },
+    {
+      "name": "开发者社区",
+      "url": "https://example4.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg",
+      "description": "JavaScript 学习交流"
+    },
+    {
+      "name": "设计灵感",
+      "url": "https://example5.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/figma.svg",
+      "description": "UI/UX 设计资源"
+    },
+    {
+      "name": "算法学习",
+      "url": "https://example6.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/leetcode.svg",
+      "description": "算法与数据结构"
+    },
+    {
+      "name": "云服务",
+      "url": "https://example7.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg",
+      "description": "云计算技术分享"
+    },
+    {
+      "name": "开源项目",
+      "url": "https://example8.com",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opensource.svg",
+      "description": "优秀开源项目推荐"
+    }
   ]
 }

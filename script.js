@@ -21,7 +21,8 @@ function renderProfile(config) {
     const {
         profile,
         contact,
-        skills
+        skills,
+        friendLinks
     } = config;
 
     // 基本信息
@@ -65,6 +66,26 @@ function renderProfile(config) {
         skillTag.innerHTML = `<img src="${iconUrl}" alt="${skill}" style="width:28px;height:28px;display:block;margin-bottom:2px;filter:invert(80%) grayscale(1);"><span>${skill}</span>`;
         skillTagsContainer.appendChild(skillTag);
     });
+
+    // 渲染友链
+    if (friendLinks && friendLinks.length > 0) {
+        const friendLinksContainer = document.getElementById('friend-links');
+        friendLinksContainer.innerHTML = '';
+        friendLinks.forEach(link => {
+            const linkElement = document.createElement('a');
+            linkElement.className = 'friend-link';
+            linkElement.href = link.url;
+            linkElement.target = '_blank';
+            linkElement.innerHTML = `
+                <img src="${link.icon}" alt="${link.name}" class="friend-link-icon" style="filter: invert(80%) grayscale(1);">
+                <div class="friend-link-info">
+                    <div class="friend-link-name">${link.name}</div>
+                    <div class="friend-link-desc">${link.description}</div>
+                </div>
+            `;
+            friendLinksContainer.appendChild(linkElement);
+        });
+    }
 }
 
 // 计算网站运行天数
@@ -81,18 +102,20 @@ function setSiteDays() {
 function setupTabs() {
     const navItems = document.querySelectorAll('.nav-item');
     const tabContents = document.querySelectorAll('.tab-content');
+
     // 初始化：只显示第一个tab内容，其余隐藏
     tabContents.forEach((tc, idx) => {
-        tc.style.display = idx === 0 ? '' : 'none';
+        tc.style.display = idx === 0 ? 'block' : 'none';
     });
-    navItems.forEach((item, idx) => {
-        item.addEventListener('click', function(e) {
+
+    navItems.forEach((item) => {
+        item.addEventListener('click', function (e) {
             e.preventDefault();
             navItems.forEach(i => i.classList.remove('active'));
             this.classList.add('active');
             const tab = this.getAttribute('data-tab');
             tabContents.forEach(tc => {
-                tc.style.display = tc.id === 'tab-' + tab ? '' : 'none';
+                tc.style.display = tc.id === 'tab-' + tab ? 'block' : 'none';
             });
         });
     });
