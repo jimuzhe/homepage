@@ -62,8 +62,9 @@
 
                 <!-- 项目 Tab -->
                 <div id="tab-projects" class="tab-content" style="display: none;">
+                    <div class="projects-title">项目展示</div>
                     <div class="projects-container">
-                        <p>项目展示内容待开发...</p>
+                        <!-- 卡片内容由JS动态渲染 -->
                     </div>
                 </div>
 
@@ -81,6 +82,22 @@
             <img id="background-image" src="" alt="背景图片" class="background-image">
         </div>
     </div>
+
+    <!-- 音乐播放器 -->
+    <div class="music-player" id="musicPlayer">
+        <div class="vinyl-container">
+            <div class="vinyl-record" id="vinylRecord">
+                <div class="vinyl-center">
+                    <img id="albumCover" src="" alt="专辑封面" class="album-cover">
+                </div>
+            </div>
+        </div>
+        <div class="music-info">
+            <div class="song-text" id="songText">加载中...</div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
 </body>
 
 </html>

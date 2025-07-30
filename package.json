@@ -1,0 +1,32 @@
+{
+  "name": "homepage-config-manager",
+  "version": "1.0.0",
+  "description": "个人主页配置管理系统",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "install-deps": "npm install express cors",
+    "deploy": "wrangler pages publish . --project-name homepage",
+    "preview": "wrangler pages dev .",
+    "kv:create": "wrangler kv:namespace create CONFIG_KV && wrangler kv:namespace create CONFIG_KV --preview"
+  },
+  "keywords": [
+    "homepage",
+    "config",
+    "admin",
+    "express"
+  ],
+  "author": "LongDz",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

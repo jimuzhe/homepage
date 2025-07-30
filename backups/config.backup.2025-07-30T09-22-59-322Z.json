@@ -4,9 +4,9 @@
     "title": "前端开发工程师",
     "description": "掌握基于Cursor、AugmentCode、Claude Code、Copliot下的Java、Go、C++、NodeJs、Python的后端开发、React、Vue的前端开发、测试、运维、逆向。数据分析、机器学习、深度学习",
     "avatar": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMjaIiYVwSI6brk1VkX8CwRlN-eOfEAAuzHMRsaw0lUVyqVbdjhIqwBAAMCAANtAAM2BA.png",
-    "backgroundImage": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMwaInmiGg4oncIvbFjvAABUCqEgqUZAAKlxzEbW65QVBlvaoGJNuNcAQADAgADdwADNgQ.png",
+    "backgroundImage": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMpaInizgIAAf95aLH5TfhezuJcWcpvAAKaxzEbW65QVPTvG0h5YbZOAQADAgADdwADNgQ.png",
     "backgroundVideo": "https://yysls.fp.ps.netease.com/file/67725636ffa7504cdd36f2559bzOQy8E06",
-    "backgroundType": "image",
+    "backgroundType": "video",
     "profileBackground": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
     "profileBackgroundType": "image",
     "id": "冀ICP备2024085708号",
@@ -163,6 +163,6 @@
     ]
   },
   "background": {
-    "profileImage": "https://www.yysls.cn/pc/gw/20220815175950/img/mhys/jt/17_0d5f8fb.jpg?image_process=format,jpg"
+    "profileImage": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMsaInjjkSIRjhOtU6XFyDxFJMPzfEAAp3HMRtbrlBUU9wgttPk5HIBAAMCAAN3AAM2BA.png"
   }
 }
