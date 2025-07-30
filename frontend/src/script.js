@@ -1,28 +1,110 @@
+// 图标转换工具函数
+function convertIconClass(iconClass) {
+    if (!iconClass || !iconClass.startsWith('fa fa-')) {
+        return iconClass;
+    }
+
+    const iconName = iconClass.replace('fa fa-', '');
+    console.log(`🔄 转换图标: ${iconClass} -> ${iconName}`);
+
+    // Font Awesome 4.x -> 6.x 图标映射表
+    const iconMapping = {
+        'hand-o-up': 'hand-point-up',
+        'hand-o-down': 'hand-point-down',
+        'heart-o': 'heart',
+        'star-o': 'star',
+        'circle-o': 'circle',
+        'square-o': 'square',
+        'picture-o': 'image',
+        'file-o': 'file',
+        'folder-o': 'folder',
+        'book-o': 'book',
+        'caret-square-o-up': 'square-caret-up',
+        'youtube-play': 'play',
+        'check-circle-o': 'circle-check',
+        'bell-o': 'bell',
+        'envelope-o': 'envelope'
+    };
+
+    const mappedIcon = iconMapping[iconName] || iconName;
+    const brandIcons = ['github', 'twitter', 'facebook', 'instagram', 'linkedin', 'youtube', 'react'];
+    const regularIcons = ['heart', 'star', 'circle', 'square', 'bell', 'envelope'];
+
+    let convertedClass;
+    if (brandIcons.some(brand => iconName.includes(brand) || mappedIcon.includes(brand))) {
+        convertedClass = `fab fa-${mappedIcon}`;
+    } else if (iconName.includes('-o') || regularIcons.includes(mappedIcon)) {
+        convertedClass = `far fa-${mappedIcon}`;
+    } else {
+        convertedClass = `fas fa-${mappedIcon}`;
+    }
+
+    console.log(`✅ 图标转换结果: ${convertedClass}`);
+    return convertedClass;
+}
+
+// 获取API端点
+function getApiUrl() {
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/api/config`;
+}
+
+// 应用毛玻璃效果设置
+function applyGlassMorphismSettings(backgroundConfig) {
+    const profileSection = document.querySelector('.profile-section');
+    if (!profileSection) return;
+
+    if (backgroundConfig && backgroundConfig.enableGlassMorphism !== false) {
+        // 启用毛玻璃效果（默认启用）
+        profileSection.classList.add('glass-morphism');
+        console.log('✅ 毛玻璃效果已启用');
+    } else {
+        // 禁用毛玻璃效果
+        profileSection.classList.remove('glass-morphism');
+        console.log('❌ 毛玻璃效果已禁用');
+    }
+}
+
 // 加载配置文件并渲染页面
 async function loadConfig() {
-    console.log('🔄 开始加载配置文件...');
+    console.log('🔄 开始从API加载配置文件...');
 
     try {
-        // 直接从本地config.json加载配置
-        console.log('📁 从本地config.json加载配置...');
-        const fileResponse = await fetch('./config.json');
-        console.log('📄 文件响应状态:', fileResponse.status, fileResponse.statusText);
+        // 从后端API加载配置
+        console.log('� 从后端API加载配置...');
+        const apiResponse = await fetch(getApiUrl());
+        console.log('📄 API响应状态:', apiResponse.status, apiResponse.statusText);
 
-        if (fileResponse.ok) {
-            const config = await fileResponse.json();
-            console.log('✅ 从本地config.json加载配置成功');
-            console.log('📊 配置数据:', config);
-            renderProfile(config);
-            return;
+        if (apiResponse.ok) {
+            const result = await apiResponse.json();
+            if (result.success && result.data) {
+                console.log('✅ 从API加载配置成功');
+                console.log('📊 配置数据:', result.data);
+                renderProfile(result.data);
+                return;
+            } else {
+                console.error('❌ API返回错误:', result.message || '未知错误');
+            }
         } else {
-            console.error('❌ 配置文件响应失败:', fileResponse.status, fileResponse.statusText);
+            console.error('❌ API响应失败:', apiResponse.status, apiResponse.statusText);
         }
     } catch (error) {
-        console.error('❌ 配置文件加载失败:', error);
+        console.error('❌ 从API加载配置失败:', error);
         console.error('❌ 错误详情:', error.message, error.stack);
     }
 
-    console.log('⚠️ 配置文件加载失败');
+    // 如果API加载失败，显示错误信息
+    console.error('❌ 无法从后端API加载配置文件');
+    document.body.innerHTML = `
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: #1a1f23; color: #fff; font-family: Arial, sans-serif;">
+            <div style="text-align: center;">
+                <h2>⚠️ 配置加载失败</h2>
+                <p>无法连接到后端服务器或配置文件不存在</p>
+                <p>请确保后端服务正在运行：<code>python backend/app.py</code></p>
+                <button onclick="location.reload()" style="padding: 10px 20px; margin-top: 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">重新加载</button>
+            </div>
+        </div>
+    `;
 }
 
 // 渲染个人信息
@@ -57,12 +139,29 @@ function renderProfile(config) {
         if (avatarEl && profile.avatar) avatarEl.src = profile.avatar;
         if (nameEl && profile.name) nameEl.textContent = profile.name;
         if (titleEl && profile.title) titleEl.textContent = profile.title;
-        if (birthdayEl && profile.birthday) birthdayEl.textContent = profile.birthday;
+        if (birthdayEl && profile.birthday) {
+            // 处理生日显示，只显示月日，不显示年份
+            let birthdayDisplay = profile.birthday;
+            if (profile.birthday.includes('-')) {
+                // 如果是日期格式 (YYYY-MM-DD)，提取月日部分
+                const dateParts = profile.birthday.split('-');
+                if (dateParts.length === 3) {
+                    const month = parseInt(dateParts[1]);
+                    const day = parseInt(dateParts[2]);
+                    birthdayDisplay = `${month}月${day}日`;
+                }
+            }
+            birthdayEl.textContent = `生辰: ${birthdayDisplay}`;
+        }
         if (descriptionEl && profile.description) descriptionEl.textContent = profile.description;
 
         // 设置右侧背景（图片或视频）
         console.log('🖼️ 设置背景...');
         setRightBackground(profile);
+
+        // 应用毛玻璃效果设置
+        console.log('✨ 应用毛玻璃效果设置...');
+        applyGlassMorphismSettings(config.background);
 
         // ...无等级和统计信息，防止报错...
 
@@ -79,6 +178,52 @@ function renderProfile(config) {
         <span>${profile.id || ''}</span>
         <span>已运行${days}天</span>
     `;
+
+        // 渲染社交媒体按钮
+        console.log('🔗 渲染社交媒体按钮...');
+        const socialButtonsContainer = document.querySelector('.social-media-buttons');
+        if (socialButtonsContainer && config.socialLinks) {
+            socialButtonsContainer.innerHTML = '';
+            config.socialLinks.forEach(social => {
+                if (social.name && social.url && social.url !== '#' && social.url !== '') {
+                    const socialButton = document.createElement('a');
+                    socialButton.className = 'social-button';
+                    socialButton.href = social.url;
+                    socialButton.target = '_blank';
+                    socialButton.rel = 'noopener noreferrer';
+
+                    // 根据社交媒体名称设置图标
+                    let iconClass = 'fa-brands fa-link'; // 默认图标
+                    const socialName = social.name.toLowerCase();
+
+                    if (socialName.includes('github')) {
+                        iconClass = 'fa-brands fa-github';
+                    } else if (socialName.includes('twitter') || socialName.includes('x')) {
+                        iconClass = 'fa-brands fa-x-twitter';
+                    } else if (socialName.includes('linkedin')) {
+                        iconClass = 'fa-brands fa-linkedin';
+                    } else if (socialName.includes('微博') || socialName.includes('weibo')) {
+                        iconClass = 'fa-brands fa-weibo';
+                    } else if (socialName.includes('facebook')) {
+                        iconClass = 'fa-brands fa-facebook';
+                    } else if (socialName.includes('instagram')) {
+                        iconClass = 'fa-brands fa-instagram';
+                    } else if (socialName.includes('youtube')) {
+                        iconClass = 'fa-brands fa-youtube';
+                    } else if (socialName.includes('bilibili') || socialName.includes('b站')) {
+                        iconClass = 'fa-brands fa-bilibili';
+                    }
+
+                    socialButton.innerHTML = `
+                        <i class="${iconClass}"></i>
+                        <span>${social.name}</span>
+                    `;
+
+                    socialButtonsContainer.appendChild(socialButton);
+                }
+            });
+        }
+
         // 技能标签（Simple Icons SVG）
         const skillTagsContainer = document.getElementById('skill-tags');
         skillTagsContainer.innerHTML = '';
@@ -113,8 +258,25 @@ function renderProfile(config) {
                 linkElement.className = 'friend-link';
                 linkElement.href = link.url;
                 linkElement.target = '_blank';
+
+                // 判断图标类型：URL还是FontAwesome类名
+                let iconHtml = '';
+                if (link.icon) {
+                    if (link.icon.startsWith('http') || link.icon.startsWith('//') || link.icon.includes('.')) {
+                        // 图片URL
+                        iconHtml = `<img src="${link.icon}" alt="${link.name}" class="friend-link-icon" style="filter: invert(80%) grayscale(1);">`;
+                    } else {
+                        // FontAwesome类名 - 使用转换函数
+                        const convertedClass = convertIconClass(link.icon);
+                        iconHtml = `<div class="friend-link-icon"><i class="${convertedClass}" style="font-size: 24px; color: #888;"></i></div>`;
+                    }
+                } else {
+                    // 默认图标
+                    iconHtml = `<div class="friend-link-icon"><i class="fas fa-link" style="font-size: 24px; color: #888;"></i></div>`;
+                }
+
                 linkElement.innerHTML = `
-                <img src="${link.icon}" alt="${link.name}" class="friend-link-icon" style="filter: invert(80%) grayscale(1);">
+                ${iconHtml}
                 <div class="friend-link-info">
                     <div class="friend-link-name">${link.name}</div>
                     <div class="friend-link-desc">${link.description}</div>
@@ -134,8 +296,24 @@ function renderProfile(config) {
                     a.className = 'project-link';
                     a.href = project.url || '#';
                     a.target = '_blank';
+                    // 判断图标类型：URL还是FontAwesome类名
+                    let iconHtml = '';
+                    if (project.icon) {
+                        if (project.icon.startsWith('http') || project.icon.startsWith('//') || project.icon.includes('.')) {
+                            // 图片URL
+                            iconHtml = `<img src="${project.icon}" alt="${project.name}" style="width: 24px; height: 24px; object-fit: contain;">`;
+                        } else {
+                            // FontAwesome类名 - 使用转换函数
+                            const convertedClass = convertIconClass(project.icon);
+                            iconHtml = `<i class="${convertedClass}"></i>`;
+                        }
+                    } else {
+                        // 默认图标
+                        iconHtml = `<i class="fas fa-code"></i>`;
+                    }
+
                     a.innerHTML = `
-                    <div class="project-link-icon"><i class="${project.icon}"></i></div>
+                    <div class="project-link-icon">${iconHtml}</div>
                     <div class="project-link-info">
                         <div class="project-link-title">${project.name}</div>
                         <div class="project-link-desc">${project.desc || ''}</div>
@@ -244,23 +422,27 @@ class MusicPlayer {
 
     async loadMusicConfig() {
         try {
-            const response = await fetch('./config.json');
-            const config = await response.json();
+            const response = await fetch(getApiUrl());
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success && result.data && result.data.music) {
+                    const config = result.data;
+                    this.playlist = config.music.playlist || [];
+                    const currentId = config.music.currentSongId;
 
-            if (config.music) {
-                this.playlist = config.music.playlist || [];
-                const currentId = config.music.currentSongId;
+                    if (currentId && this.playlist.includes(currentId)) {
+                        this.currentSongIndex = this.playlist.indexOf(currentId);
+                    }
 
-                if (currentId && this.playlist.includes(currentId)) {
-                    this.currentSongIndex = this.playlist.indexOf(currentId);
-                }
-
-                if (this.playlist.length > 0) {
-                    await this.loadSong(this.playlist[this.currentSongIndex]);
-                    // 自动播放
-                    this.autoPlay();
+                    if (this.playlist.length > 0) {
+                        await this.loadSong(this.playlist[this.currentSongIndex]);
+                        // 自动播放
+                        this.autoPlay();
+                    }
+                    return;
                 }
             }
+            throw new Error('API响应失败');
         } catch (error) {
             console.error('加载音乐配置失败:', error);
             // 使用默认歌曲
@@ -372,9 +554,19 @@ class MusicPlayer {
         if (this.isPlaying) {
             this.audio.pause();
         } else {
-            this.audio.play().catch(error => {
-                console.error('播放失败:', error);
-            });
+            // 如果音量为0，说明是首次播放，需要渐变
+            if (this.audio.volume === 0) {
+                this.audio.play().then(() => {
+                    this.fadeInVolume();
+                }).catch(error => {
+                    console.error('播放失败:', error);
+                });
+            } else {
+                // 正常播放
+                this.audio.play().catch(error => {
+                    console.error('播放失败:', error);
+                });
+            }
         }
     }
 
@@ -382,7 +574,12 @@ class MusicPlayer {
     autoPlay() {
         // 延迟一点时间确保音频加载完成
         setTimeout(() => {
-            this.audio.play().catch(error => {
+            // 设置初始音量为0，准备渐变
+            this.audio.volume = 0;
+            this.audio.play().then(() => {
+                // 播放成功后开始音量渐变
+                this.fadeInVolume();
+            }).catch(error => {
                 console.log('自动播放被浏览器阻止，需要用户交互后播放:', error);
                 // 添加用户交互监听器来启动播放
                 this.addUserInteractionListener();
@@ -390,10 +587,39 @@ class MusicPlayer {
         }, 500);
     }
 
+    // 音量渐变方法
+    fadeInVolume() {
+        const targetVolume = 0.7; // 目标音量
+        const fadeTime = 3000; // 渐变时间3秒
+        const steps = 60; // 渐变步数
+        const volumeStep = targetVolume / steps;
+        const timeStep = fadeTime / steps;
+
+        let currentStep = 0;
+
+        const fadeInterval = setInterval(() => {
+            currentStep++;
+            const newVolume = Math.min(volumeStep * currentStep, targetVolume);
+            this.audio.volume = newVolume;
+
+            if (currentStep >= steps || newVolume >= targetVolume) {
+                clearInterval(fadeInterval);
+                this.audio.volume = targetVolume;
+                console.log('🎵 音乐音量渐变完成，当前音量:', targetVolume);
+            }
+        }, timeStep);
+    }
+
     // 添加用户交互监听器
     addUserInteractionListener() {
         const startPlayback = () => {
-            this.audio.play().catch(e => console.log('播放失败:', e));
+            // 设置初始音量为0，准备渐变
+            this.audio.volume = 0;
+            this.audio.play().then(() => {
+                // 播放成功后开始音量渐变
+                this.fadeInVolume();
+            }).catch(e => console.log('播放失败:', e));
+
             // 同时尝试播放背景视频
             const backgroundVideo = document.querySelector('.background-video');
             if (backgroundVideo) {
@@ -442,8 +668,62 @@ class MusicPlayer {
     }
 }
 
+// 侧边栏控制功能
+function initSidebarToggle() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const profileSection = document.getElementById('profileSection');
+    const centerTitle = document.getElementById('centerTitle');
+    const container = document.querySelector('.container');
+
+    if (!sidebarToggle || !profileSection || !centerTitle || !container) {
+        console.warn('侧边栏控制元素未找到');
+        return;
+    }
+
+    // 默认状态：侧边栏展开，中心标题隐藏
+    centerTitle.classList.add('hidden');
+
+    // 切换侧边栏的函数
+    function toggleSidebar() {
+        const isCollapsed = profileSection.classList.contains('collapsed');
+
+        if (isCollapsed) {
+            // 展开侧边栏
+            profileSection.classList.remove('collapsed');
+            container.classList.remove('sidebar-collapsed');
+            centerTitle.classList.add('hidden');
+            sidebarToggle.classList.remove('active');
+            sidebarToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            console.log('📖 侧边栏已展开');
+        } else {
+            // 收回侧边栏
+            profileSection.classList.add('collapsed');
+            container.classList.add('sidebar-collapsed');
+            centerTitle.classList.remove('hidden');
+            sidebarToggle.classList.add('active');
+            sidebarToggle.innerHTML = '<i class="fas fa-times"></i>';
+            console.log('📕 侧边栏已收回');
+        }
+    }
+
+    // 点击按钮切换
+    sidebarToggle.addEventListener('click', toggleSidebar);
+
+    // 键盘快捷键支持 (ESC键)
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            toggleSidebar();
+        }
+    });
+
+    console.log('✅ 侧边栏控制功能初始化完成');
+}
+
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function () {
+    // 初始化侧边栏控制
+    initSidebarToggle();
+
     loadConfig();
     setSiteDays();
     setupTabs();
@@ -549,29 +829,49 @@ function addVideoInteractionListener(video) {
 // 设置个人资料区域背景图片
 async function setProfileBackground() {
     try {
-        const response = await fetch('config.json');
-        const config = await response.json();
+        const response = await fetch(getApiUrl());
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success && result.data) {
+                const config = result.data;
 
-        if (config.background && config.background.profileImage) {
-            // 创建动态样式来设置斜分割线区域的背景
-            const styleId = 'dynamic-background-style';
-            let styleElement = document.getElementById(styleId);
+                // 创建动态样式来设置斜分割线区域的背景
+                const styleId = 'dynamic-background-style';
+                let styleElement = document.getElementById(styleId);
 
-            if (!styleElement) {
-                styleElement = document.createElement('style');
-                styleElement.id = styleId;
-                document.head.appendChild(styleElement);
+                if (!styleElement) {
+                    styleElement = document.createElement('style');
+                    styleElement.id = styleId;
+                    document.head.appendChild(styleElement);
+                }
+
+                // 检查是否显示背景图片
+                if (config.background && config.background.showBackgroundImage && config.background.profileImage) {
+                    console.log('✅ 显示背景图片:', config.background.profileImage);
+                    // 显示背景图片 - 在毛玻璃效果下方添加背景图片
+                    styleElement.textContent = `
+                        .profile-section::before {
+                            background:
+                                linear-gradient(135deg,
+                                    rgba(26, 31, 35, 0.8) 0%,
+                                    rgba(26, 31, 35, 0.6) 50%,
+                                    rgba(26, 31, 35, 0.7) 100%),
+                                url('${config.background.profileImage}') center center / cover no-repeat !important;
+                        }
+                    `;
+                } else {
+                    console.log('🚫 隐藏背景图片，使用纯色背景');
+                    // 不显示背景图片，使用纯色背景
+                    styleElement.textContent = `
+                        .profile-section::before {
+                            background: linear-gradient(135deg,
+                                rgba(26, 31, 35, 0.8) 0%,
+                                rgba(26, 31, 35, 0.6) 50%,
+                                rgba(26, 31, 35, 0.7) 100%) !important;
+                        }
+                    `;
+                }
             }
-
-            // 直接用图片填充斜分割线左侧区域
-            styleElement.textContent = `
-                .container::before {
-                    background: url('${config.background.profileImage}') center center / cover no-repeat !important;
-                }
-                .profile-section {
-                    background: transparent !important;
-                }
-            `;
         }
     } catch (error) {
         console.error('设置背景图片失败:', error);

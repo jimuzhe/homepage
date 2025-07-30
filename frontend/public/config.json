@@ -1,0 +1,262 @@
+{
+  "background": {
+    "enableGlassMorphism": false,
+    "profileImage": "https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+    "showBackgroundImage": true
+  },
+  "backgroundPresets": {
+    "profile": [
+      {
+        "custom": false,
+        "name": "原神-钟离",
+        "url": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAM5aIpbqtkPotrr_gTa4A8dEOunhjIAAvXGMRtbrlhUUEMPXZ2OpTQBAAMCAAN3AAM2BA.png"
+      },
+      {
+        "custom": false,
+        "name": "原神-雷电将军",
+        "url": "https://www.yysls.cn/pc/gw/20220815175950/img/mhys/jt/17_0d5f8fb.jpg?image_process=format,jpg"
+      },
+      {
+        "custom": false,
+        "name": "风景-山水",
+        "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": false,
+        "name": "风景-星空",
+        "url": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": false,
+        "name": "抽象-渐变",
+        "url": "https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": false,
+        "name": "科技-电路",
+        "url": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": true,
+        "name": "自定义-测试2",
+        "url": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      }
+    ],
+    "right": [
+      {
+        "custom": false,
+        "name": "风景-海滩",
+        "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": false,
+        "name": "城市-夜景",
+        "url": "https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": false,
+        "name": "自然-森林",
+        "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": false,
+        "name": "抽象-几何",
+        "url": "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      },
+      {
+        "custom": true,
+        "name": "水女",
+        "url": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMwaInmiGg4oncIvbFjvAABUCqEgqUZAAKlxzEbW65QVBlvaoGJNuNcAQADAgADdwADNgQ.png"
+      }
+    ],
+    "video": [
+      {
+        "custom": false,
+        "name": "自然-海浪",
+        "url": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
+      },
+      {
+        "custom": false,
+        "name": "抽象-粒子",
+        "url": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_2mb.mp4"
+      },
+      {
+        "custom": false,
+        "name": "科技-数据流",
+        "url": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_5mb.mp4"
+      }
+    ]
+  },
+  "contact": {
+    "address": "北京市海淀区",
+    "email": "zhangsan@example.com",
+    "phone": "+86 138-0000-0000"
+  },
+  "friendLinks": [
+    {
+      "description": "React 开发经验分享",
+      "icon": "fab fa-react",
+      "name": "技术博客",
+      "url": "https://example3.com"
+    },
+    {
+      "description": "JavaScript 学习交流",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg",
+      "name": "开发者社区",
+      "url": "https://example4.com"
+    },
+    {
+      "description": "UI/UX 设计资源",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/figma.svg",
+      "name": "设计灵感",
+      "url": "https://example5.com"
+    },
+    {
+      "description": "算法与数据结构",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/leetcode.svg",
+      "name": "算法学习",
+      "url": "https://example6.com"
+    },
+    {
+      "description": "云计算技术分享",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg",
+      "name": "云服务",
+      "url": "https://example7.com"
+    },
+    {
+      "description": "优秀开源项目推荐",
+      "icon": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/opensource.svg",
+      "name": "开源项目",
+      "url": "https://example8.com"
+    }
+  ],
+  "music": {
+    "currentSongId": "1933659329",
+    "playlist": [
+      "1933659329",
+      "1974443815"
+    ]
+  },
+  "profile": {
+    "avatar": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMjaIiYVwSI6brk1VkX8CwRlN-eOfEAAuzHMRsaw0lUVyqVbdjhIqwBAAMCAANtAAM2BA.png",
+    "backgroundImage": "https://image.name666.top/file/AgACAgUAAyEGAASfXnYUAAMwaInmiGg4oncIvbFjvAABUCqEgqUZAAKlxzEbW65QVBlvaoGJNuNcAQADAgADdwADNgQ.png",
+    "backgroundType": "image",
+    "backgroundVideo": "https://yysls.fp.ps.netease.com/file/67725636ffa7504cdd36f2559bzOQy8E06",
+    "birthday": "2004-06-23",
+    "description": "掌握基于Cursor、AugmentCode、Claude Code、Copliot下的Java、Go、C++、NodeJs、Python的后端开发、React、Vue的前端开发、测试、运维、逆向。数据分析、机器学习、深度学习",
+    "id": "冀ICP备2024085708号",
+    "name": "LongDz",
+    "profileBackground": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "profileBackgroundType": "image",
+    "siteStart": "2025-07-28",
+    "title": "全栈工程师"
+  },
+  "projects": [
+    {
+      "desc": "集剪切板管理、待办清单、Markdown笔记于一体的智能生产力工具",
+      "icon": "fa fa-hand-o-up",
+      "name": "移记",
+      "url": "https://explain.name666.top/"
+    },
+    {
+      "desc": "微信小程序搜索直达",
+      "icon": "fas fa-square-caret-up",
+      "name": "山人起名",
+      "url": "#"
+    },
+    {
+      "desc": "最懂你的 AI Markdown 伙伴",
+      "icon": "fa fa-book",
+      "name": "小酷笔记",
+      "url": "https://xiaoku.name666.top/"
+    },
+    {
+      "desc": "清爽无广在线视频",
+      "icon": "fa fa-youtube-play",
+      "name": "LongDzTv",
+      "url": "https://tv.name666.top/"
+    },
+    {
+      "desc": "永久免费免注册",
+      "icon": "fa fa-picture-o",
+      "name": "LongDz图床",
+      "url": "https://image.name666.top/"
+    }
+  ],
+  "skills": [
+    {
+      "level": "熟悉",
+      "name": "Docker"
+    },
+    {
+      "level": "掌握",
+      "name": "Git"
+    },
+    {
+      "level": "熟悉",
+      "name": "Go"
+    },
+    {
+      "level": "掌握",
+      "name": "MySQL"
+    },
+    {
+      "level": "熟悉",
+      "name": "Redis"
+    },
+    {
+      "level": "掌握",
+      "name": "Linux"
+    },
+    {
+      "level": "熟悉",
+      "name": "Spring"
+    },
+    {
+      "level": "了解",
+      "name": "TensorFlow"
+    },
+    {
+      "level": "了解",
+      "name": "PyTorch"
+    },
+    {
+      "level": "了解",
+      "name": "OpenCV"
+    },
+    {
+      "level": "了解",
+      "name": "RabbitMQ"
+    },
+    {
+      "level": "熟悉",
+      "name": "OpenAI"
+    },
+    {
+      "level": "了解",
+      "name": "R"
+    },
+    {
+      "level": "掌握",
+      "name": "C++"
+    },
+    {
+      "level": "掌握",
+      "name": "Python"
+    },
+    {
+      "level": "熟悉",
+      "name": "Javascript"
+    }
+  ],
+  "socialLinks": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/jimuzhe"
+    },
+    {
+      "name": "X (Twitter)",
+      "url": "https://twitter.com/your_username"
+    }
+  ]
+}

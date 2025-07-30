@@ -14,7 +14,7 @@ body {
     font-family: 'HYQuanTangShiJ', 'STSong', 'SimSun', serif;
     background-color: #1a1f23;
     overflow: hidden;
-    cursor: url('cursor.png'), auto;
+    cursor: url('../assets/cursor.png'), auto;
 }
 
 @font-face {
@@ -24,7 +24,7 @@ body {
 }
 @font-face {
     font-family: 'HYQuanTangShiJ';
-    src: local('HYQuanTangShiJ'), url('HYQuanTangShiJ.ttf') format('truetype');
+    src: local('HYQuanTangShiJ'), url('../assets/HYQuanTangShiJ.ttf') format('truetype');
     font-display: swap;
 }
 
@@ -53,19 +53,19 @@ body {
 
 /* 不同元素的光标样式 */
 button, .tab-button, .social-button, .project-card, .friend-card {
-    cursor: url('cursor.png'), pointer !important;
+    cursor: url('../assets/cursor.png'), pointer !important;
 }
 
 a, .clickable {
-    cursor: url('cursor.png'), pointer !important;
+    cursor: url('../assets/cursor.png'), pointer !important;
 }
 
 input, textarea, select {
-    cursor: url('cursor.png'), text !important;
+    cursor: url('../assets/cursor.png'), text !important;
 }
 
 .music-player {
-    cursor: url('cursor.png'), auto !important;
+    cursor: url('../assets/cursor.png'), auto !important;
 }
 
 .container {
@@ -74,23 +74,195 @@ input, textarea, select {
     position: relative;
 }
 
+/* 侧边栏收回/展开按钮 */
+.sidebar-toggle {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    title: "点击切换侧边栏 (ESC键)";
+}
+
+.sidebar-toggle::after {
+    content: "ESC";
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.sidebar-toggle:hover::after {
+    opacity: 1;
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-toggle.active i {
+    transform: rotate(90deg);
+}
+
+/* 中心标题 */
+.center-title {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 500;
+    color: #ffffff;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.center-title h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    background: linear-gradient(45deg, #ffffff, #b2b2b2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* 当侧边栏展开时隐藏中心标题 */
+.center-title.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .profile-section {
-    width: 23%;
-    max-width: 400px;
-    background: linear-gradient(135deg, rgba(26, 31, 35, 0.8), rgba(26, 31, 35, 0.9));
-    background-blend-mode: overlay;
+    width: 100%;
+    max-width: none;
+    background: transparent;
     padding: 80px 5px 20px 60px;
-    position: relative;
-    z-index: 3;
-    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    overflow: hidden;
     height: 100vh;
+    transform: translateX(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    clip-path: polygon(0 0, 25% 0, 42.857% 100%, 0 100%);
+    pointer-events: none;
+}
+
+/* 个人信息区域的毛玻璃背景层 */
+.profile-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+        rgba(26, 31, 35, 0.8) 0%,
+        rgba(26, 31, 35, 0.6) 50%,
+        rgba(26, 31, 35, 0.7) 100%);
+    z-index: -1;
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.1);
+    transition: backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+}
+
+/* 启用毛玻璃效果时的样式 */
+.profile-section.glass-morphism::before {
+    backdrop-filter: blur(20px) saturate(1.3) brightness(1.1);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3) brightness(1.1);
+    clip-path: polygon(0 0, 25% 0, 42.857% 100%, 0 100%);
+}
+
+/* 个人信息区域的光影增强层 */
+.profile-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.02) 50%,
+        transparent 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 收回状态 */
+.profile-section.collapsed {
+    transform: translateX(-100%);
 }
 
 .profile-info {
-    max-width: 100%;
-    margin: 0 auto;
+    max-width: 400px;
+    width: 23%;
+    margin: 0;
     color: #b2b2b2;
     background-color: transparent;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    padding: 20px 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.main-content {
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding-bottom: 20px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.main-content::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.footer-info {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
 }
 
 .top-nav {
@@ -472,6 +644,18 @@ input, textarea, select {
     object-fit: cover;
     border: 1px solid rgba(178, 178, 178, 0.3);
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* FontAwesome图标样式 */
+i.friend-link-icon {
+    width: auto;
+    height: auto;
+    font-size: 24px;
+    object-fit: unset;
+    border: none;
 }
 
 .friend-link-info {
@@ -548,19 +732,7 @@ input, textarea, select {
     pointer-events: none !important;
 }
 
-/* 斜线分隔 - 上窄下宽 */
-.container::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #1a1f23;
-    clip-path: polygon(0 0, 25% 0, 42.857% 100%, 0 100%);
-    z-index: 2;
-    pointer-events: none;
-}
+/* 移除原来的背景层，现在由 profile-section 直接提供毛玻璃效果 */
 
 /* 响应式设计 */
 @media (max-width: 768px) {
@@ -575,6 +747,25 @@ input, textarea, select {
         margin: 0;
         height: auto;
         min-height: 100vh;
+        padding: 20px;
+        border-right: none;
+        border-bottom: 1px solid rgba(178, 178, 178, 0.3);
+    }
+
+    .profile-section.collapsed {
+        transform: translateY(-100%);
+    }
+
+    .sidebar-toggle {
+        top: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .center-title h1 {
+        font-size: 2rem;
     }
     
     .profile-header {

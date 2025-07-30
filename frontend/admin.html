@@ -218,6 +218,15 @@
             background: #dc2626;
         }
 
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
         .btn-block {
             width: 100%;
         }
@@ -231,6 +240,25 @@
 
         .button-group .btn {
             flex: 0 0 auto;
+        }
+
+        /* Input Group 样式 */
+        .input-group {
+            display: flex;
+            width: 100%;
+        }
+
+        .input-group .form-control {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right: none;
+        }
+
+        .input-group .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            padding: 12px 16px;
+            white-space: nowrap;
         }
 
         .card {
@@ -327,6 +355,153 @@
             background: #a8a8a8;
         }
 
+        /* 背景图片预设样式 */
+        .preset-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .presets-container {
+            flex: 1;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        .background-presets {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .background-presets.scrollable {
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .background-presets.scrollable::-webkit-scrollbar {
+            display: none;
+        }
+
+        .preset-actions {
+            margin-top: 8px;
+        }
+
+        .preset-item {
+            position: relative;
+            width: 120px;
+            height: 80px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .preset-item:hover {
+            border-color: #4f46e5;
+            transform: scale(1.05);
+        }
+
+        .preset-item.selected {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+
+        .preset-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preset-item .preset-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            text-align: center;
+            cursor: text;
+        }
+
+        .preset-item .preset-label input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .preset-item .preset-delete {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .preset-item .preset-delete:hover {
+            background: rgba(239, 68, 68, 1);
+            transform: scale(1.1);
+        }
+
+        .preset-item:hover .preset-delete {
+            display: flex;
+        }
+
+        /* 背景预览样式 */
+        .background-preview {
+            width: 200px;
+            height: 120px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background-preview img,
+        .background-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-video {
+            background: #000;
+        }
+
+        .preview-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
         @media (max-width: 768px) {
             .admin-content {
                 flex-direction: column;
@@ -415,6 +590,10 @@
                                 <div class="form-group">
                                     <label>ID</label>
                                     <input type="text" id="profileId" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>网站开始时间</label>
+                                    <input type="date" id="profileSiteStart" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -545,25 +724,70 @@
                         <p class="page-description">配置页面背景图片</p>
                     </div>
 
-                    <!-- 个人资料背景 -->
+                    <!-- 个人资料背景配置 -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">个人资料背景</h3>
+                            <h3 class="card-title">个人资料背景配置</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="showBackgroundImage" style="margin-right: 8px;">
+                                    显示个人资料背景图片
+                                </label>
+                                <small class="form-text">控制是否在左侧斜分割线区域显示背景图片</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="enableGlassMorphism" style="margin-right: 8px;">
+                                    启用毛玻璃效果
+                                </label>
+                                <small class="form-text">控制左侧斜分割线区域的毛玻璃模糊效果</small>
+                            </div>
+
+                            <!-- 背景图片预设列表 -->
+                            <div class="form-group">
+                                <label>背景图片预设</label>
+                                <div class="preset-controls">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        onclick="scrollPresets('profilePresets', -1)">‹</button>
+                                    <div class="presets-container">
+                                        <div id="profilePresets" class="background-presets scrollable">
+                                            <!-- 预设背景图片将在这里动态生成 -->
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        onclick="scrollPresets('profilePresets', 1)">›</button>
+                                </div>
+                                <div class="preset-actions">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        onclick="addCustomPreset('profile')">添加自定义预设</button>
+                                </div>
+                                <small class="form-text">点击选择预设的背景图片，双击可重命名</small>
+                            </div>
+
+                            <div class="form-group">
                                 <label>个人资料背景图片URL</label>
-                                <input type="url" id="profileBackground" class="form-control"
-                                    placeholder="输入个人资料区域的背景图片URL" />
-                                <small class="form-text">用于左侧个人资料卡片的背景图片</small>
+                                <input type="url" id="profileImage" class="form-control" placeholder="输入个人资料背景图片URL" />
+                                <small class="form-text">用于左侧斜分割线区域的背景图片</small>
+                            </div>
+
+                            <!-- 当前背景预览 -->
+                            <div class="form-group">
+                                <label>当前背景预览</label>
+                                <div id="profileBackgroundPreview" class="background-preview">
+                                    <img id="profilePreviewImage" src="" alt="背景预览" style="display: none;">
+                                    <div id="profilePreviewPlaceholder" class="preview-placeholder">暂无背景图片</div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 右侧背景 -->
+                    <!-- 右侧背景配置 -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">右侧背景</h3>
+                            <h3 class="card-title">右侧背景配置</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
@@ -576,43 +800,85 @@
                             </div>
 
                             <div class="form-group" id="imageBackgroundGroup">
+                                <!-- 右侧背景图片预设 -->
+                                <div class="form-group">
+                                    <label>右侧背景图片预设</label>
+                                    <div class="preset-controls">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            onclick="scrollPresets('rightPresets', -1)">‹</button>
+                                        <div class="presets-container">
+                                            <div id="rightPresets" class="background-presets scrollable">
+                                                <!-- 预设背景图片将在这里动态生成 -->
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            onclick="scrollPresets('rightPresets', 1)">›</button>
+                                    </div>
+                                    <div class="preset-actions">
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            onclick="addCustomPreset('right')">添加自定义预设</button>
+                                    </div>
+                                    <small class="form-text">点击选择预设的背景图片，双击可重命名</small>
+                                </div>
+
                                 <label>右侧背景图片URL</label>
                                 <input type="url" id="backgroundImage" class="form-control"
                                     placeholder="输入右侧内容区域的背景图片URL" />
                                 <small class="form-text">用于右侧内容区域的背景图片</small>
+
+                                <!-- 右侧背景预览 -->
+                                <div class="form-group">
+                                    <label>右侧背景预览</label>
+                                    <div id="rightBackgroundPreview" class="background-preview">
+                                        <img id="rightPreviewImage" src="" alt="背景预览" style="display: none;">
+                                        <div id="rightPreviewPlaceholder" class="preview-placeholder">暂无背景图片</div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group" id="videoBackgroundGroup" style="display: none;">
+                                <!-- 视频背景预设 -->
+                                <div class="form-group">
+                                    <label>视频背景预设</label>
+                                    <div class="preset-controls">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            onclick="scrollPresets('videoPresets', -1)">‹</button>
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            onclick="addCustomPreset('video')">添加自定义</button>
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            onclick="scrollPresets('videoPresets', 1)">›</button>
+                                    </div>
+                                    <div class="preset-container">
+                                        <div id="videoPresets" class="background-presets"></div>
+                                    </div>
+                                </div>
+
                                 <label>右侧背景视频URL</label>
-                                <input type="url" id="backgroundVideo" class="form-control"
-                                    placeholder="输入右侧内容区域的背景视频URL" />
+                                <div class="input-preview-container">
+                                    <input type="url" id="backgroundVideo" class="form-control"
+                                        placeholder="输入右侧内容区域的背景视频URL" oninput="updateVideoPreview()" />
+                                    <div class="background-preview">
+                                        <video id="videoPreview" class="preview-video" muted loop
+                                            style="display: none;">
+                                            您的浏览器不支持视频播放
+                                        </video>
+                                        <div id="videoPreviewPlaceholder" class="preview-placeholder">暂无背景视频</div>
+                                    </div>
+                                </div>
                                 <small class="form-text">支持MP4格式视频，建议使用较小的文件以提高加载速度</small>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 其他背景配置 -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">其他背景配置</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>额外背景图片URL</label>
-                                <input type="url" id="profileImage" class="form-control" placeholder="输入额外的背景图片URL" />
-                                <small class="form-text">用于其他背景配置</small>
-                            </div>
-                            <div class="button-group">
-                                <button class="btn btn-success" onclick="saveBackground()">保存背景设置</button>
-                            </div>
-                        </div>
+                    <div class="button-group">
+                        <button class="btn btn-success" onclick="saveBackground()">保存背景设置</button>
                     </div>
                 </div>
             </main>
         </div>
     </div>
 
-    <script src="admin.js"></script>
+    <script src="src/admin.js"></script>
 </body>
 
 </html>
