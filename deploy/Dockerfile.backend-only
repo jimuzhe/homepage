@@ -1,0 +1,40 @@
+# 个人主页项目 - 仅后端服务 Docker 镜像
+FROM python:3.9-slim
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装系统依赖
+RUN apt-get update && apt-get install -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制后端文件
+COPY backend/ /app/backend/
+COPY frontend/public/config.json /app/frontend/public/config.json
+
+# 创建必要的目录
+RUN mkdir -p /app/frontend/public /app/logs
+
+# 安装 Python 依赖
+RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+RUN pip install --no-cache-dir gunicorn
+
+# 创建日志目录
+RUN mkdir -p /app/logs
+
+# 设置权限
+RUN useradd -r -s /bin/false appuser
+RUN chown -R appuser:appuser /app
+
+# 切换到非root用户
+USER appuser
+
+# 暴露端口
+EXPOSE 5000
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:5000/api/health || exit 1
+
+# 启动命令 - 使用gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "--timeout", "30", "--keep-alive", "2", "--max-requests", "1000", "--max-requests-jitter", "100", "--access-logfile", "/app/logs/gunicorn_access.log", "--error-logfile", "/app/logs/gunicorn_error.log", "--log-level", "info", "app:app"]

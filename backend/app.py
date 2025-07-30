@@ -246,9 +246,8 @@ def login():
             }), 400
 
         password = data['password']
-        # 这里可以从配置文件或环境变量读取密码
-        # 目前使用硬编码，实际部署时应该使用更安全的方式
-        correct_password = 'LongDz6299'  # 可以从环境变量或配置文件读取
+        # 从环境变量读取密码，如果没有设置则使用默认值
+        correct_password = os.getenv('ADMIN_PASSWORD', 'LongDz6299')
 
         if password == correct_password:
             logger.info("✅ 用户登录成功")
